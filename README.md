@@ -32,7 +32,7 @@ Start with 3 backend instances:
 
 docker compose up --scale app=3
 
-Verify:
+Verify running containers:
 
 docker ps
 ⚖️ Load Balancing Test
@@ -40,16 +40,16 @@ for i in $(seq 1 6); do
   curl -s http://localhost/api/health | grep instanceId
 done
 
-✔ Instance IDs should rotate between app-1, app-2, app-3.
+✔ Instance IDs should rotate between app-1, app-2, and app-3.
 
 🧠 Redis Caching (Cache-Aside Pattern)
 First Request
 
 CACHE MISS
 
-Query database
+Query PostgreSQL
 
-Store in Redis
+Store result in Redis
 
 Subsequent Requests
 
@@ -63,7 +63,7 @@ Check Redis stats:
 
 docker exec taskboard-redis redis-cli INFO stats
 
-Look at:
+Important metrics:
 
 keyspace_hits
 
@@ -97,7 +97,7 @@ cache statistics
 
 📊 Performance Observation
 
-Initial request slower (DB access)
+Initial request slower (database access)
 
 Cached requests significantly faster
 
@@ -123,14 +123,14 @@ Improved scalability
 
 This project demonstrates:
 
-Horizontal scaling using Docker Compose
+Horizontal scaling with Docker Compose
 
-Reverse proxy load balancing with Nginx
+Load balancing using Nginx
 
 Performance optimization with Redis
 
 Cache-Aside pattern with invalidation
 
-Production-style service architecture
+Production-style backend architecture
 
-The system is scalable, observable, and optimized for read-heavy workloads.
+The system is scalable, efficient, and ready for real-world deployment scenarios.
